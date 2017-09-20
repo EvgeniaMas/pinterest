@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <% include ../partials/stylesheet %>
+</head>
+<body>
+    <% include ../partials/header %>
+
+    <div class="container appName">
+        <% if (message.length > 0) { %>
+            <div class="alert alert-warning alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>Ohps!</strong> <%= message %>.
+            </div>
+	    <% } %>
+        <form class="form-signin" action="/login" method="post">
+            <h2 class="form-signin-heading text-center">Sign in, please!</h2>
+            <label for="inputEmail" class="sr-only">Email address</label>
+            <input type="email" id="email" name="email" class="form-control login" placeholder="Email address" required="">
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" id="password" name="password" class="form-control login" placeholder="Password" required="">
+            <button class="btn btn-lg btn-success btn-block account" type="submit">Sign in</button>
+            <br>
+            <p>You are new here? <a href="/signup">Signup</a> right now.</p>
+        </form>
+    </div>
+
+    <% include ../partials/footer %>
+    <% include ../partials/javascript %>
+</body>
+</html>

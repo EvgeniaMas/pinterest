@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <% include ../partials/stylesheet %>
+</head>
+<body>
+    <% include ../partials/header %>
+    <div class="container appName comments_padding">
+        <div class="row"> 
+            <div class="col-lg-6 col-sm-12">
+                <button type="button" class="btn btn-primary pull-left" data-toggle="modal" data-target="#createPost">
+                    Write new
+                </button>
+            </div>
+            
+            <div class="col-lg-6 col-sm-12">
+              <% comments.forEach(function(comments){ %>
+              <% if (user.id === comments.user.id) { %> 
+              <a class="pull-right editMessage btn btn-small btn-danger"   href ="/comments/<%= comments.id %>">Delete last </a>
+              <!-- <button type="button"  class="pull-right btn btn-small btn-success" data-toggle="modal" data-target="#editPost">Edit last</button>  -->
+               <% } %> 
+           <% }); %>
+           </div>
+        </div>
+
+        <hr>    
+
+        <div class="lead">
+            <div class="list-group">
+            <% comments.forEach(function(comments){ %>
+                    <a href="#" class="list-group-item">
+                        <img src="<%= gravatar %>" alt="" style="float: left; margin-right: 10px">
+                        <div class="comments">
+                            <h4 class="list-group-item-heading"><%= comments.title %></h4>
+                            <p class="list-group-item-text"><%= comments.content %></p>
+                            <small class="text-muted">By: <%= comments.user.local.name %></small>
+                            <small class="text-muted"><%= comments.created.toDateString()    %></small>
+                            
+                        </div>                     
+                     </a>
+                      <% }); %>
+            
+            </div>        
+            </div>
+        </div>
+        <!-- Modal creat message-->
+        <div class="modal fade" id="createPost" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="/comments" method="post">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">Write message</h4>
+                        </div>
+
+                        <div class="modal-body">
+
+                            <fieldset class="form-group">
+                                <label  for="inputitle">Title</label>
+                                <input type="text" id="inputitle" name="title" class="form-control" placeholder="Message theme" required=""> 
+                               
+                            </fieldset>
+                            <fieldset class="form-group">
+                                <label  for="inputContent">Content</label>
+                                <textarea id="inputContent" name="content" rows="8" cols="40" class="form-control" placeholder="Comment Description" required=""></textarea>
+                            </fieldset>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+ <!-- Modal edit message-->
+        <div class="modal fade" id="editPost" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="/updates" method="post">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">Edit message</h4>
+                        </div>
+
+                        <div class="modal-body">
+
+                            <fieldset class="form-group">
+                                <label  for="inputitle">Title</label>
+                                <input type="text" id="inputitle" name="title" class="form-control" placeholder="Comment Title" required="">
+                            </fieldset>
+                            
+                            <fieldset class="form-group">
+                                <label  for="inputContent">Content</label>
+                                <textarea id="inputContent" name="content" rows="8" cols="40" class="form-control" required=""><%= comments %></textarea>
+                            </fieldset>
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+        <% include ../partials/footer %>
+        <% include ../partials/javascript %>
+    </body>
+    </html>
